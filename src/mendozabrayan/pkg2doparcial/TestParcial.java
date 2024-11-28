@@ -1,7 +1,7 @@
 package mendozabrayan.pkg2doparcial;
 
 import Models.Categoria;
-import Models.Inventario;
+import Service.Inventario;
 import Models.Libro;
 import java.io.IOException;
 import java.util.Comparator;

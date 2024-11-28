@@ -1,5 +1,6 @@
 package Models;
 
+import Service.CSVSerializable;
 import java.io.Serializable;
 
 public class Libro implements Comparable<Libro>, Serializable, CSVSerializable {

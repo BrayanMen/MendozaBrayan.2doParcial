@@ -1,4 +1,4 @@
-package Models;
+package Service;
 
 @FunctionalInterface
 public interface CSVSerializable {

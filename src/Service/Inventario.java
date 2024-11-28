@@ -1,5 +1,8 @@
-package Models;
+package Service;
 
+import Models.Libro;
+import Service.Inventariable;
+import Service.CSVSerializable;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,23 +28,26 @@ public class Inventario<T> implements Inventariable<T> {
             throw new IndexOutOfBoundsException("Indice Invalido");
         }
     }
-
+    
+     @Override
     public void ordenar() {
         items.sort(null);
     }
-
+     @Override
     public void ordenar(Comparator<T> comparator) {
         items.sort(comparator);
     }
 
     //Serializacion
+    @Override
    public void guardarEnArchivo(String path) throws IOException {
     try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(path))) {
         salida.writeObject(items);
         System.out.println("Archivo serializado correctamente.");
     }
 }
-
+   
+   @Override
     public void cargarDesdeArchivo(String path) throws IOException, ClassNotFoundException {
     try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(path))) {
         this.items = (List<T>) entrada.readObject();
@@ -65,7 +71,8 @@ public class Inventario<T> implements Inventariable<T> {
         }
         return false;
     }
-
+    
+    @Override
     public void guardarEnCSV(String path) {
         if (crearArchivoCsv(path)) {
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
@@ -98,7 +105,8 @@ public class Inventario<T> implements Inventariable<T> {
             System.out.println("Error al procesar la línea: " + linea + ", " + e.getMessage());
         }
     }
-
+    
+    @Override
     public void cargarDesdeCSV(String path) {
         List<Libro> listaRetornable = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
