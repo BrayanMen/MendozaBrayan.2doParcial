@@ -1,6 +1,6 @@
 package Service;
 
 @FunctionalInterface
-public interface CSVSerializable {
+public interface CSVSerializable{
     String toCSV();
 }

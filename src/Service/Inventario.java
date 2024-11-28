@@ -1,8 +1,6 @@
 package Service;
 
 import Models.Libro;
-import Service.Inventariable;
-import Service.CSVSerializable;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Inventario<T> implements Inventariable<T> {
@@ -96,24 +95,24 @@ public class Inventario<T> implements Inventariable<T> {
         return linea;
     }
 
-    private static void procesarLineaParaCSV(String linea, List<Libro> lista) {
+    private  void procesarLineaParaCSV(String linea, Function<String, T> funcion) {
         linea = limpiarLinea(linea);
         try {
-            Libro e = Libro.fromCSV(linea);
-            lista.add(e);
+            T e = funcion.apply(linea);
+            this.items.add(e); 
         } catch (IllegalArgumentException e) {
             System.out.println("Error al procesar la línea: " + linea + ", " + e.getMessage());
         }
     }
     
     @Override
-    public void cargarDesdeCSV(String path) {
-        List<Libro> listaRetornable = new ArrayList<>();
+    public void cargarDesdeCSV(String path, Function<String, T> funcion) {
+//        List<Libro> listaRetornable = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String linea;
             br.readLine();
             while ((linea = br.readLine()) != null) {
-                procesarLineaParaCSV(linea, listaRetornable);
+                procesarLineaParaCSV(linea, funcion);
             }
         } catch (IOException e) {
             System.out.println("Error al cargar en el archivo: " + e.getMessage());

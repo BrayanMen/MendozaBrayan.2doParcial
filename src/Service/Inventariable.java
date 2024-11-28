@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public interface Inventariable<T> {
@@ -30,6 +31,6 @@ public interface Inventariable<T> {
     
      public void guardarEnCSV(String path);
      
-      public void cargarDesdeCSV(String path);
+      public void cargarDesdeCSV(String path, Function<String, T> funcion);
 
 }

@@ -50,7 +50,7 @@ public class TestParcial {
             // Guardar el inventario en un archivo CSV
             inventarioLibros.guardarEnCSV("src/Data/libros.csv");
             // Cargar el inventario desde el archivo CSV
-            inventarioCargado.cargarDesdeCSV("src/Data/libros.csv");
+            inventarioCargado.cargarDesdeCSV("src/Data/libros.csv", Libro::fromCSV);
             System.out.println("\nLibros cargados desde archivo CSV:");
             inventarioCargado.paraCadaElemento(libro -> System.out.println(libro));
         } catch (IOException | ClassNotFoundException e) {
